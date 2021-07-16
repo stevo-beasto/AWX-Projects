@@ -1,8 +1,8 @@
----
-
-#name: Hello World!
-- hosts: all
-  user: root
-  tasks:
-  - name: Hello World!
-      shell: echo "Hi! AWX is working"
+--- 
+hosts: all
+name: "Hello World!"
+shell: "echo \"Hi! AWX is working\""
+tasks: 
+  - 
+    name: "Hello World!"
+user: root
