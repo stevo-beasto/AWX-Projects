@@ -6,7 +6,7 @@
 
     - name: Run the rebuild script for DOKUWIKI
       shell:
-         " rebuild-music_wiki "
+         "rebuild-music_wiki"
       register: maintenance-dokuwiki
       tags: maintenance-dokuwiki
 
