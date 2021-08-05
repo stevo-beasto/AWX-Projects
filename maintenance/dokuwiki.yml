@@ -6,6 +6,6 @@
 
     - name: Run the rebuild script for DOKUWIKI
       shell:
-         "rebuild-music_wiki"
+         "/Users/hank/Docker/wikis/music/bin/rebuild-music_wiki.sh"
       args: 
          executable: /bin/bash
