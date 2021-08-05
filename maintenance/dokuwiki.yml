@@ -10,4 +10,4 @@
       register: maintenance-dokuwiki
       tags: maintenance-dokuwiki
 
-- debug: msg="{{maintenance-dokuwiki.stdout}}"
+    - debug: msg="{{maintenance-dokuwiki.stdout}}"
