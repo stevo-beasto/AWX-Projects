@@ -7,3 +7,5 @@
     - name: Run the rebuild script for DOKUWIKI
       shell:
          "rebuild-music_wiki"
+        args: 
+          executable: /bin/bash
