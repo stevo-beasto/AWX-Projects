@@ -7,7 +7,8 @@
     tasks:
     - name: Run the rebuild script for DOKUWIKI
       shell:
-         "/Users/hank/Docker/wikis/music/bin/rebuild-music_wiki.sh"
+#         "/Users/hank/Docker/wikis/music/bin/rebuild-music_wiki.sh"
+          "rebuild-music_wiki"
       args: 
          executable: /bin/bash
       register: bashcmd
