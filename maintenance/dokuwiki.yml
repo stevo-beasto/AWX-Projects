@@ -1,6 +1,6 @@
 ---
 
-  - name: Maintenance DokuWiki
+  - name: Maintenance for DokuWiki containers
     hosts: DOCKERHOST-PROD
     become: yes
     become_user: root
@@ -13,3 +13,7 @@
          "/Users/hank/Docker/wikis/music/bin/rebuild-music_wiki.sh"
       args: 
          executable: /bin/bash
+      register: bashcmd
+      tags: bashcmd
+
+    - debug: msg="{{bashcmd.stdout}}"
