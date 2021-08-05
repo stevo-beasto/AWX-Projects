@@ -2,11 +2,6 @@
 
   - name: Maintenance for DokuWiki containers
     hosts: DOCKERHOST-PROD
-    vars:
-      - hcvaultkey: "{{ lookup('hashi_vault', 'secret=home-environment-live/beast/system-password token=s.ztKWCLh4NEvzvNMdvEzO1G6U url=https://beast.foxy.home:8200 validate_certs=false') }}"
-    become: yes
-    become_user: hank
-    become_password: "{{ hcvaultkey }}" 
     tasks:
 
     - name: Run the rebuild script for DOKUWIKI
