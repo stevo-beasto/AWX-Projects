@@ -2,7 +2,7 @@
 
   - name: Maintenance for DokuWiki containers
     hosts: DOCKERHOST-PROD
-    sudo: yes
+    become: yes
     tasks:
 
     - name: Run the rebuild script for DOKUWIKI
