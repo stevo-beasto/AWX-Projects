@@ -1,16 +1,11 @@
 ---
+
   - name: Maintenance DokuWiki
     hosts: DOCKERHOST-PROD
     tasks:
 
-    - name: Run the maintenance script for DOKUWIKI
+    - name: Run the rebuild script for DOKUWIKI
       shell:
          " /Users/hank/Docker/wikis/music/bin/rebuild-music_wiki.sh ""
       register: maintenance-dokuwiki
       tags: dokuwiki
-
-
-## Example task
-#    - name: Display the file
-#      shell: cat /tmp/dirlist.txt
-#      register: displaylist
