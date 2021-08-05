@@ -2,6 +2,8 @@
 
   - name: Maintenance DokuWiki
     hosts: DOCKERHOST-PROD
+    become: yes
+    become_user: root
     tasks:
 
     - name: Run the rebuild script for DOKUWIKI
