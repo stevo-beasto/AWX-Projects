@@ -2,8 +2,6 @@
 
   - name: Maintenance for DokuWiki containers
     hosts: DOCKERHOST-PROD
-#    become: yes
-#    become_method: sudo
     tasks:
     - name: Run the rebuild script for DOKUWIKI
       shell:
