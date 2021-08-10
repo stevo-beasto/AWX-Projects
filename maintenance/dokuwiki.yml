@@ -4,8 +4,7 @@
     hosts: DOCKERHOST-PROD
     tasks:
     - name: Run the rebuild script for DOKUWIKI
-#      ansible.builtin.shell: "echo test" 
-      ansible.builtin.script: ./scripts/rebuild-music_wiki.sh
+      ansible.builtin.shell: "rebuild-music_wiki" 
       become: yes
       args: 
          executable: /bin/bash
