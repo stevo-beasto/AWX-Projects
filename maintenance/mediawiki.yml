@@ -1,0 +1,16 @@
+---
+
+  - name: Maintenance for MEDIAWIKI containers
+    hosts: DOCKERHOST-PROD
+    tasks:
+
+    - name: Run rebuild script for the TableTop-RPG Wiki 
+      shell:
+        " /Users/hank/Docker/wikis/tabletop-rpg/bin/rebuilt_tabletop-rpg.sh "
+      become: yes
+      args: 
+         executable: /bin/bash
+      register: mediawiki_rebuild
+      tags: mediawiki_rebuild
+
+    - debug: msg="{{mediawiki_rebuild.stdout}}"
