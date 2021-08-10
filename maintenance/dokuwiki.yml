@@ -3,13 +3,60 @@
   - name: Maintenance for DokuWiki containers
     hosts: DOCKERHOST-PROD
     tasks:
-    - name: Run the rebuild script for DOKUWIKI
+
+    - name: Stop the DOKUWIKI container(s)
       shell:
         " /usr/local/bin/docker stop wiki_music "
       become: yes
       args: 
          executable: /bin/bash
-      register: bashcmd
-      tags: bashcmd
+      register: dokuwiki_stop_container
+      tags: dokuwiki_stop_container
 
-    - debug: msg="{{bashcmd.stdout}}"
+    - debug: msg="{{dokuwiki_stop_container.stdout}}"
+
+    - name: Remove the DOKUWIKI container(s)
+      shell:
+        " /usr/local/bin/docker rm wiki_music "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: dokuwiki_remove_container
+      tags: dokuwiki_remove_container
+
+    - debug: msg="{{dokuwiki_remove_container.stdout}}"
+
+    - name: Removes the DOKUWIKI Image
+      shell:
+        " /usr/local/bin/docker rmi linuxserver/dokuwiki:latest "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: dokuwiki_remove_image
+      tags: dokuwiki_remove_image
+
+    - debug: msg="{{dokuwiki_remove_image.stdout}}"
+
+    - name: Pull the latest DOKUWIKI Image
+      shell:
+        " /usr/local/bin/docker pull linuxserver/dokuwiki.latest "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: dokuwiki_pull_image
+      tags: dokuwiki_pull_image
+
+    - debug: msg="{{dokuwiki_pull_image.stdout}}"
+
+    - name: Start the DOKUWIKI container(s)
+      command: chdir=/Users/hank/Docker/wikis/music/
+      shell:
+        " /usr/local/bin/docker run -d --restart=unless-stopped --name=wiki_music -p 8003:80 --mount type=bind,source="$(pwd)"/data,target=/config/dokuwiki/data/ linuxserver/dokuwiki:latest
+ "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: dokuwiki_start_container
+      tags: dokuwiki_start_container
+
+    - debug: msg="{{dokuwiki_start_container.stdout}}"
