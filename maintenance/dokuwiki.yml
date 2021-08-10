@@ -39,7 +39,7 @@
 
     - name: Pull the latest DOKUWIKI Image
       shell:
-        " /usr/local/bin/docker pull linuxserver/dokuwiki.latest "
+        " /usr/local/bin/docker pull linuxserver/dokuwiki:latest "
       become: yes
       args:
          executable: /bin/bash
