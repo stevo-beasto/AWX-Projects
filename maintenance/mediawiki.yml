@@ -94,7 +94,7 @@
 
     - name: Start the MEDIAWIKI container(TECH-NOTES)
       shell:
-        " /usr/local/bin/docker run -d --restart=unless-stopped --name=wiki_tech-notes -p 8000:80 --mount type=bind,source="$(pwd)"/data/,target=/var/www/data/ --mount type=bind,source="$(pwd)"/etc/html/,target=/var/www/html/ mediawiki:latest "
+        " /usr/local/bin/docker run -d --restart=unless-stopped --name=wiki_tech-notes -p 8000:80 --mount type=bind,source=$(pwd)/data/,target=/var/www/data/ --mount type=bind,source=$(pwd)/etc/html/,target=/var/www/html/ mediawiki:latest "
       become: yes
       args:
          chdir: /Users/hank/Docker/wikis/tech-notes/
@@ -106,7 +106,7 @@
 
     - name: Start the MEDIAWIKI container(RECIPES)
       shell:
-        " /usr/local/bin/docker run -d --restart=unless-stopped --name=wiki_recipes -p 8001:80 --mount type=bind,source="$(pwd)"/data/,target=/var/www/data/ --mount type=bind,source="$(pwd)"/etc/html/,target=/var/www/html/ mediawiki:latest "
+        " /usr/local/bin/docker run -d --restart=unless-stopped --name=wiki_recipes -p 8001:80 --mount type=bind,source=$(pwd)/data/,target=/var/www/data/ --mount type=bind,source=$(pwd)/etc/html/,target=/var/www/html/ mediawiki:latest "
       become: yes
       args:
          chdir: /Users/hank/Docker/wikis/recipes/
@@ -118,7 +118,7 @@
 
     - name: Start the MEDIAWIKI container(TABLETOP-RPG)
       shell:
-        " /usr/local/bin/docker run -d --restart=unless-stopped --name=wiki_tabletop-rpg -p 8002:80 --mount type=bind,source="$(pwd)"/data/,target=/var/www/data/ --mount type=bind,source="$(pwd)"/etc/html/,target=/var/www/html/ mediawiki:latest "
+        " /usr/local/bin/docker run -d --restart=unless-stopped --name=wiki_tabletop-rpg -p 8002:80 --mount type=bind,source=$(pwd)/data/,target=/var/www/data/ --mount type=bind,source=$(pwd)/etc/html/,target=/var/www/html/ mediawiki:latest "
       become: yes
       args:
          chdir: /Users/hank/Docker/wikis/tabletop-rpg/
