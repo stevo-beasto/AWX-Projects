@@ -50,7 +50,7 @@
 
     - name: Start the DOKUWIKI container(s)
       shell:
-        " /usr/local/bin/docker run -d --restart=unless-stopped --name=wiki_music -p 8003:80 --mount type=bind,source=$(pwd)/data,target=/config/dokuwiki/data/ linuxserver/dokuwiki:latest "'
+        " /usr/local/bin/docker run -d --restart=unless-stopped --name=wiki_music -p 8003:80 --mount type=bind,source=$(pwd)/data,target=/config/dokuwiki/data/ linuxserver/dokuwiki:latest "
       become: yes
       args:
          chdir: /Users/hank/Docker/wikis/music/
