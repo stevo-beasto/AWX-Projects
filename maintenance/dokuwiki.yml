@@ -2,12 +2,10 @@
 
   - name: Maintenance for DokuWiki containers
     hosts: DOCKERHOST-PROD
+    become: yes
     tasks:
     - name: Run the rebuild script for DOKUWIKI
-      ansible.builtin.shell: "/Users/hank/Docker/wikis/music/bin/rebuild-music_wiki.sh" 
-#      shell:
-#         "/Users/hank/Docker/wikis/music/bin/rebuild-music_wiki.sh"
-#         "echo test"
+      ansible.builtin.shell: "docker stop wiki_music" 
       args: 
          executable: /bin/bash
       register: bashcmd
