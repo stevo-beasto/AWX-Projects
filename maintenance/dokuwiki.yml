@@ -4,7 +4,9 @@
     hosts: DOCKERHOST-PROD
     tasks:
     - name: Run the rebuild script for DOKUWIKI
-      ansible.builtin.shell: "docker --help" 
+#      ansible.builtin.shell: "docker --help" 
+      shell:
+        " which clear "
       become: yes
       args: 
          executable: /bin/bash
