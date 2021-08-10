@@ -4,7 +4,7 @@
     hosts: DOCKERHOST-PROD
     tasks:
     - name: Run the rebuild script for DOKUWIKI
-      ansible.builtin.shell: "docker stop wiki_music" 
+      ansible.builtin.shell: "echo test" 
       become: yes
       args: 
          executable: /bin/bash
