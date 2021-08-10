@@ -6,7 +6,7 @@
     - name: Run the rebuild script for DOKUWIKI
 #      ansible.builtin.shell: "docker --help" 
       shell:
-        " diskutil "
+        " diskutil list "
       become: yes
       args: 
          executable: /bin/bash
