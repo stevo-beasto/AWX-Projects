@@ -1,16 +1,61 @@
 ---
 
-  - name: Maintenance for MEDIAWIKI containers
+  - name: Maintenance for MediaWiki containers
     hosts: DOCKERHOST-PROD
     tasks:
 
-    - name: Run rebuild script for the TableTop-RPG Wiki 
+    - name: Stop the MEDIAWIKI container(TABLETOP-RPG)
       shell:
-        " /Users/hank/Docker/wikis/tabletop-rpg/bin/rebuilt_tabletop-rpg.sh "
+        " /usr/local/bin/docker stop wiki_tabletop-rpg "
       become: yes
       args: 
          executable: /bin/bash
-      register: mediawiki_rebuild
-      tags: mediawiki_rebuild
+      register: mediawiki_stop_container
+      tags: mediawiki_stop_container
 
-    - debug: msg="{{mediawiki_rebuild.stdout}}"
+    - debug: msg="{{mediawiki_stop_container.stdout}}"
+
+    - name: Remove the MEDIAWIKI container(TABLETOP-RPG))
+      shell:
+        " /usr/local/bin/docker rm wiki_tabletop-rpg "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: mediawiki_remove_container
+      tags: mediawiki_remove_container
+
+    - debug: msg="{{mediawiki_remove_container.stdout}}"
+
+    - name: Removes the MEDIAWIKI Image
+      shell:
+        " /usr/local/bin/docker rmi mediawiki:latest "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: mediawiki_remove_image
+      tags: mediawiki_remove_image
+
+    - debug: msg="{{mediawiki_remove_image.stdout}}"
+
+    - name: Pull the latest MEDIAWIKI Image
+      shell:
+        " /usr/local/bin/docker pull mediawiki:latest "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: mediawiki_pull_image
+      tags: mediawiki_pull_image
+
+    - debug: msg="{{mediawiki_pull_image.stdout}}"
+
+    - name: Start the MEDIAWIKI container(TABLETOP-RPG))
+      shell:
+        " /usr/local/bin/docker run -d --restart=unless-stopped --name=wiki_tabletop-rpg -p 8002:80 --mount type=bind,source="$(pwd)"/data/,target=/var/www/data/ --mount type=bind,source="$(pwd)"/etc/html/,target=/var/www/html/ mediawiki:latest "
+      become: yes
+      args:
+         chdir: /Users/hank/Docker/wikis/tabletop-rpg/
+         executable: /bin/bash
+      register: mediawiki_start_container
+      tags: mediawiki_start_container
+
+    - debug: msg="{{mediawiki_start_container.stdout}}"
