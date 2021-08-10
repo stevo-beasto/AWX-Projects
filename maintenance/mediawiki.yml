@@ -4,6 +4,28 @@
     hosts: DOCKERHOST-PROD
     tasks:
 
+    - name: Stop the MEDIAWIKI container(TECH-NOTES)
+      shell:
+        " /usr/local/bin/docker stop wiki_tech-notes "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: tech-notes_stop_container
+      tags: tech-notes_stop_container
+
+    - debug: msg="{{tech-notes_stop_container.stdout}}"
+
+    - name: Stop the MEDIAWIKI container(RECIPES)
+      shell:
+        " /usr/local/bin/docker stop wiki_recipes "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: recipes_stop_container
+      tags: recipes_stop_container
+
+    - debug: msg="{{recipes_stop_container.stdout}}"
+
     - name: Stop the MEDIAWIKI container(TABLETOP-RPG)
       shell:
         " /usr/local/bin/docker stop wiki_tabletop-rpg "
@@ -15,7 +37,29 @@
 
     - debug: msg="{{mediawiki_stop_container.stdout}}"
 
-    - name: Remove the MEDIAWIKI container(TABLETOP-RPG))
+    - name: Remove the MEDIAWIKI container(TECH-NOTES)
+      shell:
+        " /usr/local/bin/docker rm wiki_tech-notes "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: tech-notes_remove_container
+      tags: tech-notes_remove_container
+
+    - debug: msg="{{tech-notes_remove_container.stdout}}"
+
+    - name: Remove the MEDIAWIKI container(RECIPES)
+      shell:
+        " /usr/local/bin/docker rm wiki_recipes "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: recipes_remove_container
+      tags: recipes_remove_container
+
+    - debug: msg="{{recipes_remove_container.stdout}}"
+
+    - name: Remove the MEDIAWIKI container(TABLETOP-RPG)
       shell:
         " /usr/local/bin/docker rm wiki_tabletop-rpg "
       become: yes
@@ -48,7 +92,31 @@
 
     - debug: msg="{{mediawiki_pull_image.stdout}}"
 
-    - name: Start the MEDIAWIKI container(TABLETOP-RPG))
+    - name: Start the MEDIAWIKI container(TECH-NOTES)
+      shell:
+        " /usr/local/bin/docker run -d --restart=unless-stopped --name=wiki_tech-notes -p 8000:80 --mount type=bind,source="$(pwd)"/data/,target=/var/www/data/ --mount type=bind,source="$(pwd)"/etc/html/,target=/var/www/html/ mediawiki:latest "
+      become: yes
+      args:
+         chdir: /Users/hank/Docker/wikis/tech-notes/
+         executable: /bin/bash
+      register: tech-notes_start_container
+      tags: tech-notes_start_container
+
+    - debug: msg="{{tech-notes_start_container.stdout}}"
+
+    - name: Start the MEDIAWIKI container(RECIPES)
+      shell:
+        " /usr/local/bin/docker run -d --restart=unless-stopped --name=wiki_recipes -p 8001:80 --mount type=bind,source="$(pwd)"/data/,target=/var/www/data/ --mount type=bind,source="$(pwd)"/etc/html/,target=/var/www/html/ mediawiki:latest "
+      become: yes
+      args:
+         chdir: /Users/hank/Docker/wikis/recipes/
+         executable: /bin/bash
+      register: recipes_start_container
+      tags: recipes_start_container
+
+    - debug: msg="{{recipes_start_container.stdout}}"
+
+    - name: Start the MEDIAWIKI container(TABLETOP-RPG)
       shell:
         " /usr/local/bin/docker run -d --restart=unless-stopped --name=wiki_tabletop-rpg -p 8002:80 --mount type=bind,source="$(pwd)"/data/,target=/var/www/data/ --mount type=bind,source="$(pwd)"/etc/html/,target=/var/www/html/ mediawiki:latest "
       become: yes
