@@ -50,7 +50,7 @@
 
     - name: Start the SSH-SERVER container(s)
       shell:
-        " /usr/local/bin/docker run -d -p 7226:22   --name ssh-server   --hostname foxy-ssh-gateway   -v /Users/hank/Docker/ssh-server/data/id_rsa.pub:/etc/authorized_keys/foxy:ro   -v /Users/hank/Docker/ssh-server/data/etc-ssh/:/etc/ssh/   -e SSH_USERS=foxy:50:50   -e MOTD='You are connected to Foxy's SSH Gateway'   panubo/sshd:latest "
+        " /usr/local/bin/docker run -d -p 7226:22   --name ssh-server   --hostname foxy-ssh-gateway   -v /Users/hank/Docker/ssh-server/data/id_rsa.pub:/etc/authorized_keys/foxy:ro   -v /Users/hank/Docker/ssh-server/data/etc-ssh/:/etc/ssh/   -e SSH_USERS=foxy:50:50   -e MOTD=You\ are\ connected\ to\ Foxy\'s\ SSH\ Gateway   panubo/sshd:latest "
       become: yes
       args:
          executable: /bin/bash
