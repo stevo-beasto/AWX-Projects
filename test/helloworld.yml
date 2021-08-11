@@ -1,9 +1,6 @@
 --- 
-? "-hosts"
-: all
-name: "Hello World!"
-shell: "echo \"Hi! AWX is working\""
-tasks: 
-  - 
-    name: "Hello World!"
-user: root
+
+- hosts: all
+  tasks:
+   -name: HELLO WORLD
+    shell: "echo \"Hi World!\"
