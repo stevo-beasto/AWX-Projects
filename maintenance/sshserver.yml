@@ -1,0 +1,60 @@
+---
+
+  - name: Maintenance for sshserver container
+    hosts: DOCKERHOST-PROD
+    tasks:
+
+    - name: Stop the SSH-SERVER container(s)
+      shell:
+        " /usr/local/bin/docker stop ssh-server "
+      become: yes
+      args: 
+         executable: /bin/bash
+      register: sshserver_stop_container
+      tags: sshserver_stop_container
+
+    - debug: msg="{{sshserver_stop_container.stdout}}"
+
+    - name: Remove the SSH-SERVER container
+      shell:
+        " /usr/local/bin/docker rm ssh-server "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: sshserver_remove_container
+      tags: sshserver_remove_container
+
+    - debug: msg="{{sshserver_remove_container.stdout}}"
+
+    - name: Removes the SSH-SERVER Image
+      shell:
+        " /usr/local/bin/docker rmi linuxserver/sshserver:latest "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: sshserver_remove_image
+      tags: sshserver_remove_image
+
+    - debug: msg="{{sshserver_remove_image.stdout}}"
+
+    - name: Pull the latest SSH-SERVER Image
+      shell:
+        " /usr/local/bin/docker pull linuxserver/sshserver:latest "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: sshserver_pull_image
+      tags: sshserver_pull_image
+
+    - debug: msg="{{sshserver_pull_image.stdout}}"
+
+    - name: Start the SSH-SERVER container(s)
+      shell:
+        " /usr/local/bin/docker run -d -p 7226:22   --name ssh-server   --hostname foxy-ssh-gateway   -v /Users/hank/Docker/ssh-server/data/id_rsa.pub:/etc/authorized_keys/foxy:ro   -v /Users/hank/Docker/ssh-server/data/etc-ssh/:/etc/ssh/   -e SSH_USERS="foxy:50:50"   -e MOTD="You are connected to Foxy's SSH Gateway"   panubo/sshd:latest "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: sshserver_start_container
+      tags: sshserver_start_container
+
+    - debug: msg="{{sshserver_start_container.stdout}}"
