@@ -1,0 +1,61 @@
+---
+
+  - name: Maintenance for vault container
+    hosts: DOCKERHOST-PROD
+    tasks:
+
+    - name: Stop the VAULT-HOME container
+      shell:
+        " /usr/local/bin/docker stop vault-home "
+      become: yes
+      args: 
+         executable: /bin/bash
+      register: vault_stop_container
+      tags: vault_stop_container
+
+    - debug: msg="{{vault_stop_container.stdout}}"
+
+    - name: Remove the VAULT-HOME container
+      shell:
+        " /usr/local/bin/docker rm vault-home "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: vault_remove_container
+      tags: vault_remove_container
+
+    - debug: msg="{{vault_remove_container.stdout}}"
+
+    - name: Removes the VAULT-HOME Image
+      shell:
+        " /usr/local/bin/docker rmi vault:homemade "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: vault_remove_image
+      tags: vault_remove_image
+
+    - debug: msg="{{vault_remove_image.stdout}}"
+
+    - name: Creates the VAULT-HOME Image
+      shell:
+        " /usr/local/bin/docker build -t vault:homemade . "
+      become: yes
+      args:
+         chdir: /Users/hank/Docker/vault/git/docker-vault/0.X/
+         executable: /bin/bash
+      register: vault_pull_image
+      tags: vault_pull_image
+
+    - debug: msg="{{vault_pull_image.stdout}}"
+
+    - name: Start the VAULT-HOME container
+      shell:
+         " /usr/local/bin/docker run -d --restart=unless-stopped --name=vault-home -p 8200:8200 --mount type=bind,source=/Users/hank/Docker/vault/data/,target=/vault/file/ --mount type=bind,source=/Users/hank/Docker/vault/etc/,target=/vault/config/ vault:homemade "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: vault_start_container
+      tags: vault_start_container
+
+    - debug: msg="{{vault_start_container.stdout}}"
