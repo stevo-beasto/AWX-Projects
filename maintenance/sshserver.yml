@@ -28,7 +28,7 @@
 
     - name: Removes the SSH-SERVER Image
       shell:
-        " /usr/local/bin/docker rmi linuxserver/sshserver:latest "
+        " /usr/local/bin/docker rmi panubo/sshd:latest "
       become: yes
       args:
          executable: /bin/bash
@@ -39,7 +39,7 @@
 
     - name: Pull the latest SSH-SERVER Image
       shell:
-        " /usr/local/bin/docker pull linuxserver/sshserver:latest "
+        " /usr/local/bin/docker pull panubo/sshd:latest "
       become: yes
       args:
          executable: /bin/bash
