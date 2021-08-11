@@ -10,10 +10,10 @@
       become: yes
       args:
          executable: /bin/bash
-      register: tech-notes_stop_container
-      tags: tech-notes_stop_container
+      register: technotes_stop_container
+      tags: technotes_stop_container
 
-    - debug: msg="{{tech-notes_stop_container.stdout}}"
+    - debug: msg="{{technotes_stop_container.stdout}}"
 
     - name: Stop the MEDIAWIKI container(RECIPES)
       shell:
@@ -32,10 +32,10 @@
       become: yes
       args: 
          executable: /bin/bash
-      register: mediawiki_stop_container
-      tags: mediawiki_stop_container
+      register: tabletoprpg_stop_container
+      tags: tabletoprpg_stop_container
 
-    - debug: msg="{{mediawiki_stop_container.stdout}}"
+    - debug: msg="{{tabletoprpg_stop_container.stdout}}"
 
     - name: Remove the MEDIAWIKI container(TECH-NOTES)
       shell:
@@ -43,10 +43,10 @@
       become: yes
       args:
          executable: /bin/bash
-      register: tech-notes_remove_container
-      tags: tech-notes_remove_container
+      register: technotes_remove_container
+      tags: technotes_remove_container
 
-    - debug: msg="{{tech-notes_remove_container.stdout}}"
+    - debug: msg="{{technotes_remove_container.stdout}}"
 
     - name: Remove the MEDIAWIKI container(RECIPES)
       shell:
@@ -65,10 +65,10 @@
       become: yes
       args:
          executable: /bin/bash
-      register: mediawiki_remove_container
-      tags: mediawiki_remove_container
+      register: tabletoprpg_remove_container
+      tags: tabletoprpg_remove_container
 
-    - debug: msg="{{mediawiki_remove_container.stdout}}"
+    - debug: msg="{{tabletoprpg_remove_container.stdout}}"
 
     - name: Removes the MEDIAWIKI Image
       shell:
@@ -99,10 +99,10 @@
       args:
          chdir: /Users/hank/Docker/wikis/tech-notes/
          executable: /bin/bash
-      register: tech-notes_start_container
-      tags: tech-notes_start_container
+      register: technotes_start_container
+      tags: technotes_start_container
 
-    - debug: msg="{{tech-notes_start_container.stdout}}"
+    - debug: msg="{{technotes_start_container.stdout}}"
 
     - name: Start the MEDIAWIKI container(RECIPES)
       shell:
@@ -123,7 +123,7 @@
       args:
          chdir: /Users/hank/Docker/wikis/tabletop-rpg/
          executable: /bin/bash
-      register: mediawiki_start_container
-      tags: mediawiki_start_container
+      register: tabletoprpg_start_container
+      tags: tabletoprpg_start_container
 
-    - debug: msg="{{mediawiki_start_container.stdout}}"
+    - debug: msg="{{tabletoprpg_start_container.stdout}}"
