@@ -6,7 +6,7 @@
 
     - name: Runs the rebuild script for the Vault container
       shell:
-        " /Users/hank/Docker/vault/bin/rebuild-vault.sh "
+        " /usr/local/bin/rebuild-vault "
       become: yes
       args:
          executable: /bin/bash
