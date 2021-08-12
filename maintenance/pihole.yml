@@ -1,0 +1,61 @@
+---
+
+  - name: Maintenance for PIHOLE containers
+    hosts: DOCKERHOST-PROD
+    tasks:
+
+    - name: Stop the PIHOLE container(s)
+      shell:
+        " /usr/local/bin/docker stop pihole "
+      become: yes
+      args: 
+         executable: /bin/bash
+      register: pihole_stop_container
+      tags: pihole_stop_container
+
+    - debug: msg="{{pihole_stop_container.stdout}}"
+
+    - name: Remove the PIHOLE container(s)
+      shell:
+        " /usr/local/bin/docker rm pihole "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: pihole_remove_container
+      tags: pihole_remove_container
+
+    - debug: msg="{{pihole_remove_container.stdout}}"
+
+    - name: Removes the PIHOLE Image
+      shell:
+        " /usr/local/bin/docker rmi pihole/pihole:latest "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: pihole_remove_image
+      tags: pihole_remove_image
+
+    - debug: msg="{{pihole_remove_image.stdout}}"
+
+    - name: Pull the latest PIHOLE Image
+      shell:
+        " /usr/local/bin/docker pull pihole/pihole:latest "
+      become: yes
+      args:
+         executable: /bin/bash
+      register: pihole_pull_image
+      tags: pihole_pull_image
+
+    - debug: msg="{{pihole_pull_image.stdout}}"
+
+    - name: Start the PIHOLE container(s)
+      shell:
+         " docker run -d --name pihole -p 53:53/tcp -p 53:53/udp -p 80:80 -p 443:443 -e TZ="America/Denver" -v "/Users/hank/Docker/pihole/etc/pihole/:/etc/pihole/" -v "/Users/hank/Docker/pihole/etc/dnsmasq.d/:/etc/dnsmasq.d/" --dns=127.0.0.1 --dns=1.1.1.1 --restart=unless-stopped --hostname pi.hole -e VIRTUAL_HOST="pi.hole" -e PROXY_LOCATION="pi.hole" -e ServerIP="127.0.0.1" pihole/pihole:latest "
+      become: yes
+      args:
+#         chdir: /Users/hank/Docker/pihole/
+         executable: /bin/bash
+      register: pihole_start_container
+      tags: pihole_start_container
+
+    - debug: msg="{{pihole_start_container.stdout}}"
