@@ -44,6 +44,7 @@
       args:
          chdir: /Users/hank/Docker/vault/git/docker-vault/0.X/
          executable: /bin/bash
+      status_code: 1
       register: vault_pull_image
       tags: vault_pull_image
 
