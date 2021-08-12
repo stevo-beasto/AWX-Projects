@@ -37,14 +37,20 @@
 
     - debug: msg="{{vault_remove_image.stdout}}"
 
-    - name: Creates the VAULT-HOME Image
-      shell:
-        " /usr/local/bin/docker build -t vault:homemade . "
-      become: yes
-      args:
-         chdir: /Users/hank/Docker/vault/git/docker-vault/0.X/
-         executable: /bin/bash
-      status_code: 1
+    - name: build container image
+      docker_image:
+        name: vault:homemade
+        build: 
+          path: /Users/hank/Docker/vault/git/docker-vault/0.X/
+          source: build
+        state: present
+#    - name: Creates the VAULT-HOME Image
+#      shell:
+#        " /usr/local/bin/docker build -t vault:homemade  "
+#      become: yes
+#      args:
+#         chdir: /Users/hank/Docker/vault/git/docker-vault/0.X/
+#         executable: /bin/bash
       register: vault_pull_image
       tags: vault_pull_image
 
