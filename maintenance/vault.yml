@@ -42,7 +42,7 @@
         " /usr/local/bin/docker build -t vault:homemade /Users/hank/Docker/vault/git/docker-vault/0.X/ "
       become: yes
       args:
-#         chdir: /Users/hank/Docker/vault/git/docker-vault/0.X/
+         chdir: /Users/hank/Docker/vault/git/docker-vault/0.X/
          executable: /bin/bash
       register: vault_pull_image
       tags: vault_pull_image
