@@ -1,0 +1,17 @@
+---
+
+  - name: Test to build docker images
+    hosts: DOCKERHOST-PROD
+    tasks:
+
+    - name: Creates a Vault-Test Image
+      shell:
+        " /usr/local/bin/docker build -t vault:test /Users/hank/Docker/vault/git/docker-vault/0.X/ "
+      become: yes
+      args:
+         chdir: /Users/hank/Docker/vault/git/docker-vault/0.X/
+         executable: /bin/bash
+      register: docker_build_image
+      tags: docker_build_image
+
+    - debug: msg="{{docker_build_image.stdout}}"

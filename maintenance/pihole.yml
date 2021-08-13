@@ -53,7 +53,6 @@
          " /usr/local/bin/docker run -d --name pihole -p 53:53/tcp -p 53:53/udp -p 80:80 -p 443:443 -e TZ=America/Denver -v /Users/hank/Docker/pihole/etc/pihole/:/etc/pihole/ -v /Users/hank/Docker/pihole/etc/dnsmasq.d/:/etc/dnsmasq.d/ --dns=127.0.0.1 --dns=1.1.1.1 --restart=unless-stopped --hostname pi.hole -e VIRTUAL_HOST=pi.hole -e PROXY_LOCATION=pi.hole -e ServerIP=127.0.0.1 pihole/pihole:latest "
       become: yes
       args:
-#         chdir: /Users/hank/Docker/pihole/
          executable: /bin/bash
       register: pihole_start_container
       tags: pihole_start_container
