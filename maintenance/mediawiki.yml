@@ -7,6 +7,7 @@
     - name: Stop the MEDIAWIKI container(TECH-NOTES)
       shell:
         " /usr/local/bin/docker stop wiki_tech-notes "
+      ignore_errors: yes
       become: yes
       args:
          executable: /bin/bash
@@ -18,6 +19,7 @@
     - name: Stop the MEDIAWIKI container(RECIPES)
       shell:
         " /usr/local/bin/docker stop wiki_recipes "
+      ignore_errors: yes
       become: yes
       args:
          executable: /bin/bash
@@ -29,6 +31,7 @@
     - name: Stop the MEDIAWIKI container(TABLETOP-RPG)
       shell:
         " /usr/local/bin/docker stop wiki_tabletop-rpg "
+      ignore_errors: yes
       become: yes
       args: 
          executable: /bin/bash
@@ -40,6 +43,7 @@
     - name: Remove the MEDIAWIKI container(TECH-NOTES)
       shell:
         " /usr/local/bin/docker rm wiki_tech-notes "
+      ignore_errors: yes
       become: yes
       args:
          executable: /bin/bash
@@ -51,6 +55,7 @@
     - name: Remove the MEDIAWIKI container(RECIPES)
       shell:
         " /usr/local/bin/docker rm wiki_recipes "
+      ignore_errors: yes
       become: yes
       args:
          executable: /bin/bash
@@ -62,6 +67,7 @@
     - name: Remove the MEDIAWIKI container(TABLETOP-RPG)
       shell:
         " /usr/local/bin/docker rm wiki_tabletop-rpg "
+      ignore_errors: yes
       become: yes
       args:
          executable: /bin/bash
@@ -73,6 +79,7 @@
     - name: Removes the MEDIAWIKI Image
       shell:
         " /usr/local/bin/docker rmi mediawiki:latest "
+      ignore_errors: yes
       become: yes
       args:
          executable: /bin/bash

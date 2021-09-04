@@ -7,6 +7,7 @@
     - name: Stop the VAULT-HOME container
       shell:
         " /usr/local/bin/docker stop vault-home "
+      ignore_errors: yes
       become: yes
       args: 
          executable: /bin/bash
@@ -18,6 +19,7 @@
     - name: Remove the VAULT-HOME container
       shell:
         " /usr/local/bin/docker rm vault-home "
+      ignore_errors: yes
       become: yes
       args:
          executable: /bin/bash
@@ -29,6 +31,7 @@
     - name: Removes the VAULT-HOME Image
       shell:
         " /usr/local/bin/docker rmi vault:homemade "
+      ignore_errors: yes
       become: yes
       args:
          executable: /bin/bash
@@ -42,7 +45,6 @@
         " /usr/local/bin/docker build -t vault:homemade /Users/hank/Docker/vault/git/docker-vault/0.X/ "
       become: yes
       args:
-#         chdir: /Users/hank/Docker/vault/git/docker-vault/0.X/
          executable: /bin/bash
       register: vault_pull_image
       tags: vault_pull_image
@@ -51,7 +53,7 @@
 
     - name: Start the VAULT-HOME container
       shell:
-         " /usr/local/bin/docker run -d --restart=unless-stopped --name=vault-home -p 8200:8200 --mount type=bind,source=/Users/hank/Docker/vault/data/,target=/vault/file/ --mount type=bind,source=/Users/hank/Docker/vault/etc/,target=/vault/config/ vault:homemade "
+         " /usr/local/bin/docker run -d --restart=unless-stopped --name=vault-home -p 8200:8200 -e VAULT_ADDR=http://127.0.0.1:8200 --mount type=bind,source=/Users/hank/Docker/vault/data/,target=/vault/file/ --mount type=bind,source=/Users/hank/Docker/vault/etc/,target=/vault/config/ vault:homemade "
       become: yes
       args:
          executable: /bin/bash
