@@ -40,16 +40,17 @@
 
     - debug: msg="{{vault_remove_image.stdout}}"
 
-    - name: Creates the VAULT-HOME Image
+    - name: Builds the VAULT-HOME Image
       shell:
         " /usr/local/bin/docker build -t vault:homemade /Users/hank/Docker/vault/git/docker-vault/0.X/ "
+      ignore_errors: yes
       become: yes
       args:
          executable: /bin/bash
-      register: vault_pull_image
-      tags: vault_pull_image
+      register: vault_build_image
+      tags: vault_build_image
 
-    - debug: msg="{{vault_pull_image.stdout}}"
+    - debug: msg="{{vault_build_image.stdout}}"
 
     - name: Start the VAULT-HOME container
       shell:
